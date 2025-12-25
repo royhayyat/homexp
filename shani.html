@@ -15,12 +15,11 @@
             --secondary-color: #818cf8;
             --success-color: #10b981;
             --danger-color: #ef4444;
-            --info-color: #3b82f6;
             --bg-color: #f3f4f6;
             --card-bg: #ffffff;
             --text-color: #1f2937;
             --border-color: #e5e7eb;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         [data-theme="dark"] {
@@ -34,92 +33,44 @@
         body { background-color: var(--bg-color); color: var(--text-color); direction: rtl; text-align: right; padding-bottom: 40px; transition: background 0.3s; }
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
         
-        /* Header */
-        header { margin-bottom: 20px; }
-        .header-top { display: flex; justify-content: space-between; align-items: center; }
-        h1 { font-size: 1.5rem; color: var(--primary-color); display: flex; align-items: center; gap: 10px; margin: 0; }
+        /* Components */
+        .card { background-color: var(--card-bg); border-radius: 12px; padding: 20px; box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid var(--border-color); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .modal { background: var(--card-bg); padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); border: 1px solid var(--border-color); position: relative; }
+        .modal input { width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color); font-size:1rem; }
         
-        .last-update-bar {
-            background-color: var(--card-bg);
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: #6b7280;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
-        }
-        .user-indicator { font-weight: bold; color: var(--primary-color); }
+        button.add-btn { background-color: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; font-size:1rem; }
+        button.add-btn:hover { opacity: 0.9; }
 
-        /* Modals (Login / Profile) */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000;
-        }
-        .modal {
-            background: var(--card-bg); padding: 30px; border-radius: 16px;
-            width: 90%; max-width: 400px; text-align: center;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-color);
-        }
-        .modal h2 { color: var(--primary-color); margin-bottom: 20px; }
-        .modal input { width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; background: var(--bg-color); color: var(--text-color); }
-        .modal button { width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; transition: 0.2s; }
-        
-        /* Tabs */
+        /* Auth Tabs */
         .auth-tabs { display: flex; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); }
         .auth-tab { flex: 1; padding: 10px; cursor: pointer; color: var(--text-color); opacity: 0.6; }
         .auth-tab.active { border-bottom: 2px solid var(--primary-color); opacity: 1; font-weight: bold; color: var(--primary-color); }
+        .auth-error { color: var(--danger-color); margin-top: 10px; font-size: 0.9rem; display: none; background: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 6px; text-align: right; }
 
-        .profile-btn {
-            background: var(--bg-color); border: 1px solid var(--border-color); padding: 12px;
-            margin: 8px 0; width: 100%; border-radius: 8px; cursor: pointer;
-            font-size: 1rem; color: var(--text-color); transition: 0.2s; display: flex; justify-content: space-between;
-        }
-        .profile-btn:hover { border-color: var(--primary-color); background: rgba(79, 70, 229, 0.05); }
-
-        /* General UI */
+        /* Header */
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .icon-btn { background: none; border: 1px solid var(--border-color); padding: 8px; border-radius: 8px; cursor: pointer; color: var(--text-color); font-size: 1.2rem; }
         .status-dot { height: 10px; width: 10px; background-color: #ccc; border-radius: 50%; display: inline-block; }
         .status-online { background-color: var(--success-color); box-shadow: 0 0 8px var(--success-color); }
 
-        .card { background-color: var(--card-bg); border-radius: 12px; padding: 20px; box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid var(--border-color); }
-        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 600px) { .dashboard { grid-template-columns: 1fr; } }
-        
-        .total-amount { font-size: 2rem; font-weight: bold; color: var(--success-color); margin-top: 10px; text-align: center; }
-        .chart-container { height: 200px; display: flex; justify-content: center; align-items: center; }
-
+        /* Form & List */
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; align-items: end; }
         input, select { padding: 10px; width: 100%; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); font-size: 1rem; }
-        
-        .extra-fields { background-color: rgba(59, 130, 246, 0.05); padding: 15px; border-radius: 8px; margin-top: 10px; display: none; grid-column: 1 / -1; border: 1px dashed var(--info-color); }
-        .calc-preview { font-size: 0.9rem; color: var(--primary-color); font-weight: bold; margin-top: 5px; }
-
-        button.add-btn { background-color: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 15px; font-size: 1rem; transition: transform 0.1s;}
-        button.add-btn:active { transform: scale(0.98); }
-        button.add-btn:hover { opacity: 0.9; }
-
-        .filters { display: flex; gap: 10px; margin-bottom: 15px; overflow-x: auto; }
         .expense-list { width: 100%; border-collapse: collapse; }
         .expense-list td { padding: 12px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
         
-        .badge { font-size: 0.7em; padding: 2px 6px; border-radius: 4px; background: #eee; color: #555; margin-right: 5px; vertical-align: middle;}
-        .badge-loan { background: #fee2e2; color: #991b1b; }
-        .badge-installments { background: #dbeafe; color: #1e40af; }
+        .extra-fields { background-color: rgba(59, 130, 246, 0.05); padding: 15px; border-radius: 8px; margin-top: 10px; display: none; grid-column: 1 / -1; border: 1px dashed var(--primary-color); }
         
-        .delete-btn { background-color: transparent; color: var(--text-color); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 6px; cursor: pointer; opacity: 0.7; }
-        .delete-btn:hover { background-color: #fee2e2; color: var(--danger-color); border-color: var(--danger-color); opacity: 1; }
+        .methods-list { text-align: right; max-height: 200px; overflow-y: auto; margin-bottom: 15px; }
+        .method-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--border-color); align-items: center; }
+        .delete-btn-small { background: #fee2e2; color: var(--danger-color); border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+        
+        .profile-btn { background: var(--bg-color); border: 1px solid var(--border-color); padding: 12px; margin: 8px 0; width: 100%; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; color: var(--text-color); }
+        .close-modal { position: absolute; top: 15px; left: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color); }
 
         #syncBtn { display: none; background: var(--primary-color); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; margin-bottom: 20px; cursor: pointer; font-weight: bold; }
         .loader { text-align: center; padding: 20px; display: none; opacity: 0.7; }
-        
-        .auth-error { color: var(--danger-color); margin-top: 10px; font-size: 0.9rem; display: none; background: rgba(239, 68, 68, 0.1); padding: 8px; border-radius: 4px;}
     </style>
 </head>
 <body>
@@ -127,57 +78,69 @@
 <div id="authOverlay" class="overlay">
     <div class="modal">
         <h2>🏠 כניסה לבית</h2>
-        
         <div class="auth-tabs">
             <div class="auth-tab active" onclick="switchAuthTab('login')" id="tabLogin">התחברות</div>
             <div class="auth-tab" onclick="switchAuthTab('register')" id="tabRegister">יצירת בית חדש</div>
         </div>
-
+        
         <form onsubmit="handleAuth(event)">
-            <input type="email" id="authEmail" placeholder="אימייל (שם המשתמש לחשבון הבית)" required dir="ltr">
-            <input type="password" id="authPass" placeholder="סיסמה (לפחות 6 תווים)" required dir="ltr" minlength="6">
+            <input type="email" id="authEmail" placeholder="אימייל" required dir="ltr">
+            <input type="password" id="authPass" placeholder="סיסמה (6+ תווים)" required dir="ltr" minlength="6">
+            
             <button type="submit" class="add-btn" id="authSubmitBtn">הכנס לבית</button>
             <div id="authError" class="auth-error"></div>
         </form>
+
+        <a onclick="handleForgotPassword()" style="display:block; margin-top:15px; color:var(--primary-color); text-decoration:underline; cursor:pointer; font-size:0.9rem" id="forgotPassLink">שכחתי סיסמה?</a>
     </div>
 </div>
 
 <div id="profileOverlay" class="overlay" style="display:none">
     <div class="modal">
         <h2>👋 מי זה?</h2>
-        <p style="margin-bottom:15px; font-size:0.9rem; opacity:0.8">בחר את הפרופיל שלך בבית הזה</p>
         <div id="profilesList" style="margin-bottom:20px; max-height: 200px; overflow-y: auto;"></div>
-        
         <div style="border-top:1px solid var(--border-color); padding-top:15px">
-            <input type="text" id="newProfileName" placeholder="או הקלד שם חדש..." style="margin-bottom:10px">
-            <button onclick="selectProfile(document.getElementById('newProfileName').value)" class="add-btn" style="background-color: var(--success-color)">צור פרופיל וכנס</button>
+            <input type="text" id="newProfileName" placeholder="שם פרופיל חדש" style="margin-bottom:10px">
+            <button onclick="selectProfile(document.getElementById('newProfileName').value)" class="add-btn" style="background-color: var(--success-color)">צור וכנס</button>
         </div>
-        <button onclick="logout()" style="background:none; border:none; color:var(--danger-color); margin-top:15px; cursor:pointer; font-size:0.9rem">יציאה מהחשבון</button>
+        <button onclick="logout()" style="background:none; border:none; color:var(--danger-color); margin-top:15px; cursor:pointer">יציאה</button>
+    </div>
+</div>
+
+<div id="settingsOverlay" class="overlay" style="display:none">
+    <div class="modal">
+        <button class="close-modal" onclick="document.getElementById('settingsOverlay').style.display='none'">×</button>
+        <h2>💳 אמצעי תשלום</h2>
+        <div class="methods-list" id="methodsSettingsList"></div>
+        <div style="display:flex; gap:10px">
+            <input type="text" id="newMethodName" placeholder="שם האמצעי (למשל: ויזה)" style="margin-bottom:0">
+            <button onclick="addNewPaymentMethod()" class="add-btn" style="margin-top:0; width:auto; white-space:nowrap">הוסף</button>
+        </div>
     </div>
 </div>
 
 <div class="container">
     <header>
-        <div class="header-top">
-            <h1>
-                <span id="connectionStatus" class="status-dot" title="סטטוס חיבור"></span>
-                הוצאות הבית
+        <div>
+            <h1 style="color:var(--primary-color); margin:0; display:flex; align-items:center; gap:10px">
+                <span id="connectionStatus" class="status-dot"></span> הוצאות הבית
             </h1>
-            <div>
-                <span id="currentUserDisplay" style="margin-left:10px; font-weight:bold; color:var(--primary-color)"></span>
-                <button onclick="toggleTheme()" style="background:none; border:1px solid var(--border-color); padding:5px 10px; border-radius:5px; cursor: pointer;">🌓</button>
-                <button onclick="logout()" style="background:none; border:1px solid var(--danger-color); color:var(--danger-color); padding:5px 10px; border-radius:5px; cursor: pointer; margin-right:5px">יציאה</button>
-            </div>
+            <small style="color:#888" id="currentUserDisplay"></small>
         </div>
-        
-        <div class="last-update-bar">
-            <span>📅 עודכן: <span id="lastUpdateText">--</span></span>
-            <span id="lastUpdateUser" class="user-indicator"></span>
+        <div style="display:flex; gap:5px">
+            <button onclick="document.getElementById('settingsOverlay').style.display='flex'" class="icon-btn" title="אמצעי תשלום">⚙️</button>
+            <button onclick="toggleTheme()" class="icon-btn" title="ערכת נושא">🌓</button>
+            <button onclick="logout()" class="icon-btn" style="color:var(--danger-color); border-color:var(--danger-color)" title="יציאה">➜</button>
         </div>
     </header>
 
-    <button id="syncBtn" onclick="migrateLocalToCloud()">⚠️ נמצאו נתונים ישנים במכשיר זה! <br> לחץ כאן להעלאה לחשבון הנוכחי</button>
-    <div id="loader" class="loader">טוען נתונים מהענן...</div>
+    <div style="background:var(--card-bg); padding:10px; border-radius:8px; margin-bottom:20px; border:1px solid var(--border-color); font-size:0.9rem; color:#666; display:flex; justify-content:space-between;">
+        <span>📅 עודכן: <span id="lastUpdateText">--</span></span>
+        <span id="lastUpdateUser" style="color:var(--primary-color); font-weight:bold"></span>
+    </div>
+
+    <button id="syncBtn" onclick="migrateLocalToCloud()">⚠️ העלה נתונים ישנים לענן</button>
+    <div id="loader" class="loader">טוען נתונים...</div>
 
     <div class="dashboard card">
         <div style="text-align: center;">
@@ -190,32 +153,27 @@
     </div>
 
     <div class="card">
-        <h3>➕ הוספת הוצאה</h3>
+        <h3>➕ הוספה</h3>
         <form id="expenseForm" onsubmit="addExpense(event)">
             <div class="form-grid">
-                <div style="grid-column: span 2;">
-                    <label style="font-size:0.8rem">סוג</label>
-                    <select id="expenseType" onchange="toggleExtraFields()" style="font-weight:bold">
-                        <option value="regular">רגילה</option>
-                        <option value="installments">💳 תשלומים</option>
-                        <option value="loan">🏦 הלוואה</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label style="font-size:0.8rem">קטגוריה</label>
-                    <select id="category">
-                        <option value="מזון">🍕 מזון</option>
-                        <option value="חשמל/מים">💡 חשמל/מים</option>
-                        <option value="תשלומים קבועים">🏦 קבועים</option>
-                        <option value="תחבורה">🚗 תחבורה</option>
-                        <option value="ביגוד">👕 ביגוד</option>
-                        <option value="בילויים">🎉 בילויים</option>
-                        <option value="אחר">📦 אחר</option>
-                    </select>
-                </div>
-
-                <input type="text" id="desc" placeholder="תיאור (למשל: סופר)" required>
+                <select id="expenseType" onchange="toggleExtraFields()">
+                    <option value="regular">רגילה</option>
+                    <option value="installments">💳 תשלומים</option>
+                    <option value="loan">🏦 הלוואה</option>
+                </select>
+                <select id="category">
+                    <option value="מזון">🍕 מזון</option>
+                    <option value="חשמל/מים">💡 חשמל/מים</option>
+                    <option value="תשלומים קבועים">🏦 קבועים</option>
+                    <option value="תחבורה">🚗 תחבורה</option>
+                    <option value="ביגוד">👕 ביגוד</option>
+                    <option value="בילויים">🎉 בילויים</option>
+                    <option value="אחר">📦 אחר</option>
+                </select>
+                <select id="paymentMethodSelect" style="grid-column: span 2;">
+                     <option value="">-- אמצעי תשלום (רשות) --</option>
+                </select>
+                <input type="text" id="desc" placeholder="תיאור" required>
                 <input type="number" id="amount" placeholder="סכום" step="0.01" required>
                 <input type="date" id="date" required>
             </div>
@@ -223,24 +181,16 @@
             <div id="extraFields" class="extra-fields form-grid">
                 <div id="installmentsContainer" style="display:none; width:100%; grid-column: 1 / -1;">
                     <div class="form-grid">
-                        <div>
-                            <label style="font-size:0.8rem">סכום מלא</label>
-                            <input type="number" id="totalPrice" placeholder="סה״כ" step="0.01" oninput="calculateInstallment()">
-                        </div>
-                        <div>
-                            <label style="font-size:0.8rem">תשלומים</label>
-                            <input type="number" id="numberOfPayments" placeholder="כמות" min="2" max="60" oninput="calculateInstallment()">
-                        </div>
+                        <input type="number" id="totalPrice" placeholder="סה״כ מלא" oninput="calculateInstallment()">
+                        <input type="number" id="numberOfPayments" placeholder="מס' תשלומים" oninput="calculateInstallment()">
                     </div>
-                    <div id="installmentResult" class="calc-preview"></div>
+                    <div id="installmentResult" style="margin-top:5px; color:var(--primary-color); font-weight:bold"></div>
                 </div>
                 <div id="loanContainer" style="display:none; width:100%">
-                    <label style="font-size:0.8rem">יתרת חודשים</label>
-                    <input type="number" id="monthsLeft" placeholder="למשל: 12">
+                    <input type="number" id="monthsLeft" placeholder="יתרת חודשים">
                 </div>
             </div>
-
-            <button type="submit" class="add-btn" id="submitBtn">הוסף הוצאה</button>
+            <button type="submit" class="add-btn" id="submitBtn">הוסף</button>
         </form>
     </div>
 
@@ -265,10 +215,11 @@
 </div>
 
 <script>
-    // --- הגדרות FIREBASE ---
-    // אנא הדבק כאן את המפתח האמיתי שלך במקום הטקסט למטה
+    // -----------------------------------------------------------------
+    //  👇 איזור ההגדרות - עליך לערוך את שורת ה-apiKey בלבד! 👇
+    // -----------------------------------------------------------------
     const firebaseConfig = {
-      apiKey: "YOUR_REAL_API_KEY_HERE",
+      apiKey: "[REDACTED_GCP_API_KEY_1]", 
       authDomain: "homeexpenses-e2bb7.firebaseapp.com",
       databaseURL: "https://homeexpenses-e2bb7-default-rtdb.europe-west1.firebasedatabase.app",
       projectId: "homeexpenses-e2bb7",
@@ -276,31 +227,34 @@
       messagingSenderId: "322915198222",
       appId: "1:322915198222:web:fcc826384329c9bfb9a35f"
     };
+    // -----------------------------------------------------------------
 
-    let app, db, auth, expensesRef, metaRef, usersRef;
-    let expenses = []; 
+    // בדיקה מהירה שהמשתמש עדכן את המפתח
+    if (firebaseConfig.apiKey.includes("כאן_תדביק")) {
+        alert("עצור! 🛑\nעדיין לא הדבקת את ה-API Key שלך בקובץ.\nחפש את שורה 287 בקוד, הדבק את המפתח שמתחיל ב-AIza, שמור ורענן.");
+    }
+
+    let app, db, auth, expensesRef, metaRef, usersRef, methodsRef;
+    let expenses = [], paymentMethods = {};
     let currentUserProfile = null;
     let isRegisterMode = false;
 
-    // אתחול המערכת
     try {
         app = firebase.initializeApp(firebaseConfig);
         db = firebase.database();
         auth = firebase.auth();
     } catch (e) { console.error("Firebase init error:", e); }
 
-    // --- לוגיקת משתמשים וחשבונות ---
-
-    // מעבר בין לשוניות כניסה/הרשמה
+    // --- טיפול במשתמשים ---
     function switchAuthTab(mode) {
         isRegisterMode = mode === 'register';
         document.getElementById('tabLogin').className = isRegisterMode ? 'auth-tab' : 'auth-tab active';
         document.getElementById('tabRegister').className = isRegisterMode ? 'auth-tab active' : 'auth-tab';
         document.getElementById('authSubmitBtn').innerText = isRegisterMode ? 'צור בית חדש' : 'הכנס לבית';
         document.getElementById('authError').style.display = 'none';
+        document.getElementById('forgotPassLink').style.display = isRegisterMode ? 'none' : 'block';
     }
 
-    // טיפול בטופס Auth
     function handleAuth(e) {
         e.preventDefault();
         const email = document.getElementById('authEmail').value;
@@ -308,59 +262,60 @@
         const errorDiv = document.getElementById('authError');
         errorDiv.style.display = 'none';
 
-        if (isRegisterMode) {
-            auth.createUserWithEmailAndPassword(email, pass)
-                .catch(err => {
-                    errorDiv.style.display = 'block';
-                    errorDiv.innerText = getAuthErrorMessage(err.code);
-                });
-        } else {
-            auth.signInWithEmailAndPassword(email, pass)
-                .catch(err => {
-                    errorDiv.style.display = 'block';
-                    errorDiv.innerText = getAuthErrorMessage(err.code);
-                });
-        }
+        if(!email || !pass) return;
+
+        const action = isRegisterMode ? auth.createUserWithEmailAndPassword(email, pass) : auth.signInWithEmailAndPassword(email, pass);
+        
+        action.then(() => {
+            console.log("Auth Success");
+        }).catch(err => {
+            errorDiv.style.display = 'block';
+            console.error("Auth Error Full:", err);
+            
+            let msg = 'שגיאה: ' + err.message;
+            if (err.code === 'auth/wrong-password') msg = 'הסיסמה שגויה.';
+            if (err.code === 'auth/user-not-found') msg = 'משתמש לא קיים. עבור ל"יצירת בית חדש".';
+            if (err.code === 'auth/email-already-in-use') msg = 'המייל הזה כבר רשום במערכת.';
+            if (err.code === 'auth/weak-password') msg = 'סיסמה חלשה (לפחות 6 תווים).';
+            if (err.code === 'auth/invalid-email') msg = 'כתובת המייל לא תקינה.';
+            if (err.code === 'auth/internal-error') msg = 'שגיאת חיבור (Internal Error).\nודא שהדבקת את ה-API Key הנכון בקוד,\nושהפעלת Email/Password ב-Firebase Console.';
+            
+            errorDiv.innerText = msg;
+        });
     }
 
-    function getAuthErrorMessage(code) {
-        switch(code) {
-            case 'auth/email-already-in-use': return 'המייל הזה כבר קיים במערכת';
-            case 'auth/invalid-email': return 'כתובת מייל לא תקינה';
-            case 'auth/weak-password': return 'הסיסמה חלשה מדי (מינימום 6 תווים)';
-            case 'auth/user-not-found': return 'משתמש לא נמצא, אולי עליך להירשם?';
-            case 'auth/wrong-password': return 'סיסמה שגויה';
-            default: return 'שגיאה: ' + code;
+    function handleForgotPassword() {
+        const email = document.getElementById('authEmail').value;
+        if (!email) {
+            alert("הזן כתובת מייל ולחץ שוב על הקישור");
+            return;
         }
+        auth.sendPasswordResetEmail(email)
+            .then(() => alert("נשלח קישור לאיפוס סיסמה ל: " + email))
+            .catch(error => alert("שגיאה: " + error.message));
     }
 
-    // האזנה לשינויי סטטוס (כניסה/יציאה)
     if(auth) {
         auth.onAuthStateChanged(user => {
             if (user) {
-                // משתמש מחובר!
                 document.getElementById('authOverlay').style.display = 'none';
-                
-                // הגדרת נתיבים ב-DB לפי ה-UID הייחודי של החשבון
                 const householdPath = `households/${user.uid}`;
                 expensesRef = db.ref(`${householdPath}/expenses`);
                 usersRef = db.ref(`${householdPath}/users`);
+                methodsRef = db.ref(`${householdPath}/paymentMethods`);
                 metaRef = db.ref(`${householdPath}/meta/lastUpdate`);
 
-                // בדיקת פרופיל פנימי
                 const savedProfile = localStorage.getItem(`profile_${user.uid}`);
                 if (savedProfile) {
-                    currentUserProfile = savedProfile;
-                    document.getElementById('currentUserDisplay').innerText = `שלום, ${currentUserProfile}`;
-                    listenToData();
+                    selectProfile(savedProfile, false);
                 } else {
                     document.getElementById('profileOverlay').style.display = 'flex';
                     loadUsersList();
                 }
             } else {
-                // מנותק
                 document.getElementById('authOverlay').style.display = 'flex';
                 document.getElementById('profileOverlay').style.display = 'none';
+                document.getElementById('settingsOverlay').style.display = 'none';
                 expenses = [];
                 renderExpenses();
             }
@@ -374,88 +329,108 @@
         });
     }
 
-    // --- ניהול פרופילים ---
+    // --- פרופילים ---
     function loadUsersList() {
         usersRef.once('value', snap => {
             const listDiv = document.getElementById('profilesList');
             listDiv.innerHTML = '';
             const users = snap.val();
-            
             if (users) {
                 Object.keys(users).forEach(name => {
                     const btn = document.createElement('div');
                     btn.className = 'profile-btn';
                     btn.innerHTML = `<span>👤 ${name}</span> <span>➜</span>`;
-                    btn.onclick = () => selectProfile(name);
+                    btn.onclick = () => selectProfile(name, true);
                     listDiv.appendChild(btn);
                 });
             } else {
-                listDiv.innerHTML = '<p style="font-size:0.8rem; color:#888">זהו בית חדש! צור את הפרופיל הראשון.</p>';
+                listDiv.innerHTML = '<p style="color:#888">אין פרופילים. צור אחד חדש.</p>';
             }
         });
     }
 
-    function selectProfile(name) {
-        if (!name || name.trim() === '') return;
+    function selectProfile(name, updateDB) {
+        if (!name || !name.trim()) return;
         name = name.trim();
         currentUserProfile = name;
         localStorage.setItem(`profile_${auth.currentUser.uid}`, name);
-        usersRef.child(name).set(true);
+        if(updateDB) usersRef.child(name).set(true);
         document.getElementById('profileOverlay').style.display = 'none';
         document.getElementById('currentUserDisplay').innerText = `שלום, ${name}`;
         listenToData();
     }
 
-    // --- לוגיקת נתונים ---
-    
+    // --- אמצעי תשלום ---
+    function listenToPaymentMethods() {
+        methodsRef.on('value', snap => {
+            paymentMethods = snap.val() || {};
+            renderPaymentMethodsSettings();
+            renderPaymentMethodOptions();
+        });
+    }
+    function addNewPaymentMethod() {
+        const name = document.getElementById('newMethodName').value;
+        if(name.trim()) { methodsRef.push(name.trim()); document.getElementById('newMethodName').value = ''; }
+    }
+    function deletePaymentMethod(key) {
+        if(confirm('למחוק?')) methodsRef.child(key).remove();
+    }
+    function renderPaymentMethodsSettings() {
+        const list = document.getElementById('methodsSettingsList');
+        list.innerHTML = '';
+        Object.keys(paymentMethods).forEach(key => {
+            const div = document.createElement('div');
+            div.className = 'method-item';
+            div.innerHTML = `<span>${paymentMethods[key]}</span> <button class="delete-btn-small" onclick="deletePaymentMethod('${key}')">מחק</button>`;
+            list.appendChild(div);
+        });
+    }
+    function renderPaymentMethodOptions() {
+        const select = document.getElementById('paymentMethodSelect');
+        const currentVal = select.value;
+        select.innerHTML = '<option value="">-- אמצעי תשלום (רשות) --</option>';
+        Object.keys(paymentMethods).forEach(key => {
+            const opt = document.createElement('option');
+            opt.value = paymentMethods[key];
+            opt.innerText = paymentMethods[key];
+            select.appendChild(opt);
+        });
+        select.value = currentVal;
+    }
+
+    // --- נתונים ראשיים ---
     document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('date').valueAsDate = new Date();
         const today = new Date();
         document.getElementById('filterMonth').value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
-        
         if(localStorage.getItem('theme') === 'dark') document.body.setAttribute('data-theme', 'dark');
     });
 
     function listenToData() {
         document.getElementById('loader').style.display = 'block';
-        
         db.ref('.info/connected').on('value', snap => {
-            const dot = document.getElementById('connectionStatus');
-            dot.className = snap.val() ? 'status-dot status-online' : 'status-dot';
+            document.getElementById('connectionStatus').className = snap.val() ? 'status-dot status-online' : 'status-dot';
         });
-
         metaRef.on('value', snap => {
-            const data = snap.val();
-            if (data) {
-                document.getElementById('lastUpdateText').innerText = data.time;
-                document.getElementById('lastUpdateUser').innerText = `(${data.user})`;
+            if (snap.val()) {
+                document.getElementById('lastUpdateText').innerText = snap.val().time;
+                document.getElementById('lastUpdateUser').innerText = snap.val().user;
             }
         });
-
+        listenToPaymentMethods();
         expensesRef.on('value', snapshot => {
             document.getElementById('loader').style.display = 'none';
-            const data = snapshot.val();
             expenses = [];
-            if (data) {
-                Object.keys(data).forEach(key => expenses.push({ ...data[key], firebaseId: key }));
-            }
+            const data = snapshot.val();
+            if (data) Object.keys(data).forEach(key => expenses.push({ ...data[key], firebaseId: key }));
             renderExpenses();
-            
-            // בדיקה אם יש נתונים ישנים למיגרציה
-            const localData = localStorage.getItem('home_expenses_v1');
-            if (localData && JSON.parse(localData).length > 0) {
-                 document.getElementById('syncBtn').style.display = 'block';
-            }
+            if (localStorage.getItem('home_expenses_v1')) document.getElementById('syncBtn').style.display = 'block';
         });
     }
 
     function updateLastAction() {
         const now = new Date();
-        const timeString = `${now.getDate()}/${now.getMonth()+1} ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
-        metaRef.set({
-            user: currentUserProfile,
-            time: timeString
-        });
+        metaRef.set({ user: currentUserProfile, time: `${now.getDate()}/${now.getMonth()+1} ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}` });
     }
 
     function addExpense(e) {
@@ -463,226 +438,153 @@
         const type = document.getElementById('expenseType').value;
         const baseDesc = document.getElementById('desc').value;
         const category = document.getElementById('category').value;
-        const baseDate = new Date(document.getElementById('date').value);
+        const method = document.getElementById('paymentMethodSelect').value;
+        const dateVal = document.getElementById('date').value;
+        const amount = parseFloat(document.getElementById('amount').value);
 
         if (type === 'installments') {
-            const total = parseFloat(document.getElementById('totalPrice').value);
             const count = parseInt(document.getElementById('numberOfPayments').value);
-            const monthlyAmount = parseFloat(document.getElementById('amount').value);
-
-            if (!total || !count || !monthlyAmount) return alert('נא למלא פרטי תשלומים');
-            if (!confirm(`ליצור ${count} חיובים עתידיים?`)) return;
-
+            const total = parseFloat(document.getElementById('totalPrice').value);
+            if (!total || !count) return alert('חסרים פרטי תשלומים');
+            
             const updates = {};
+            const baseDateObj = new Date(dateVal);
             for (let i = 0; i < count; i++) {
-                let nextDate = new Date(baseDate);
-                nextDate.setMonth(baseDate.getMonth() + i);
+                let nextDate = new Date(baseDateObj);
+                nextDate.setMonth(baseDateObj.getMonth() + i);
                 const newKey = expensesRef.push().key;
                 updates[newKey] = {
-                    type: 'installments',
-                    desc: `${baseDesc} (${i + 1}/${count})`,
-                    amount: monthlyAmount,
-                    category: category,
-                    date: nextDate.toISOString().split('T')[0],
-                    fullAmount: total,
-                    addedBy: currentUserProfile,
-                    timestamp: Date.now() + i
+                    type, desc: `${baseDesc} (${i + 1}/${count})`, amount, category, paymentMethod: method,
+                    date: nextDate.toISOString().split('T')[0], fullAmount: total, addedBy: currentUserProfile, timestamp: Date.now() + i
                 };
             }
             expensesRef.update(updates).then(() => { updateLastAction(); resetForm(); });
-            return;
-        }
-
-        const newExpense = {
-            type: type,
-            desc: baseDesc,
-            amount: parseFloat(document.getElementById('amount').value),
-            category: category,
-            date: document.getElementById('date').value,
-            addedBy: currentUserProfile,
-            timestamp: Date.now()
-        };
-
-        if (type === 'loan') {
-            const months = parseInt(document.getElementById('monthsLeft').value);
-            if(months) newExpense.monthsLeft = months;
-        }
-
-        expensesRef.push(newExpense).then(() => { updateLastAction(); resetForm(); });
-    }
-
-    function deleteExpense(firebaseId) {
-        if(confirm('למחוק?')) {
-            expensesRef.child(firebaseId).remove().then(() => updateLastAction());
+        } else {
+            const newExpense = {
+                type, desc: baseDesc, amount, category, paymentMethod: method, date: dateVal,
+                addedBy: currentUserProfile, timestamp: Date.now()
+            };
+            if (type === 'loan') newExpense.monthsLeft = parseInt(document.getElementById('monthsLeft').value) || 0;
+            expensesRef.push(newExpense).then(() => { updateLastAction(); resetForm(); });
         }
     }
+
+    function deleteExpense(key) { if(confirm('למחוק?')) expensesRef.child(key).remove().then(updateLastAction); }
 
     function renderExpenses() {
         const tbody = document.getElementById('expensesTableBody');
         tbody.innerHTML = '';
-        const filterCat = document.getElementById('filterCategory').value;
-        const filterMonth = document.getElementById('filterMonth').value;
+        const fCat = document.getElementById('filterCategory').value;
+        const fMonth = document.getElementById('filterMonth').value;
 
-        let filtered = expenses.filter(exp => {
-            return (filterCat === 'all' || exp.category === filterCat) &&
-                   (!filterMonth || exp.date.startsWith(filterMonth));
-        });
-
+        let filtered = expenses.filter(exp => 
+            (fCat === 'all' || exp.category === fCat) && (!fMonth || exp.date.startsWith(fMonth))
+        );
         filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        if (filtered.length === 0) tbody.innerHTML = '<tr><td colspan="2" style="text-align:center; padding:20px; opacity:0.6">אין נתונים להצגה</td></tr>';
+        if (filtered.length === 0) tbody.innerHTML = '<tr><td colspan="2" style="text-align:center; padding:20px; opacity:0.6">אין נתונים</td></tr>';
 
         filtered.forEach(exp => {
             const tr = document.createElement('tr');
-            let extraInfo = '';
-            let typeBadge = '';
-            
-            if (exp.type === 'installments') {
-                typeBadge = '<span class="badge badge-installments">תשלומים</span>';
-                if (exp.fullAmount && !exp.desc.includes('(')) extraInfo = `<div style="font-size:0.8em; color:var(--primary-color);">סה"כ: ${formatCurrency(exp.fullAmount)}</div>`;
-            } else if (exp.type === 'loan' && exp.monthsLeft) {
-                typeBadge = '<span class="badge badge-loan">הלוואה</span>';
-                extraInfo = `<div style="font-size:0.8em; color:var(--danger-color);">⏳ נותרו ${exp.monthsLeft} חודשים</div>`;
-            }
-            
-            const addedBy = exp.addedBy ? `<span style="font-size:0.7em; color:#999; margin-right:5px">👤 ${exp.addedBy}</span>` : '';
+            const payTag = exp.paymentMethod ? `<div style="font-size:0.8em; color:#666">💳 ${exp.paymentMethod}</div>` : '';
+            const userTag = exp.addedBy ? `<span style="font-size:0.75em; color:#999; margin-left:5px">👤 ${exp.addedBy}</span>` : '';
+            let extra = '';
+            if (exp.type === 'installments' && exp.fullAmount && !exp.desc.includes('(')) extra = `<div style="font-size:0.8em; color:var(--primary-color)">סה"כ: ₪${exp.fullAmount}</div>`;
+            if (exp.type === 'loan') extra = `<div style="font-size:0.8em; color:var(--danger-color)">נותרו: ${exp.monthsLeft}</div>`;
 
             tr.innerHTML = `
                 <td>
-                    <div style="font-weight:bold; font-size:1.05em;">${typeBadge} ${exp.desc}</div>
-                    <div style="font-size:0.85em; opacity:0.7; margin-top:2px;">
-                        ${formatDate(exp.date)} | <span style="color:var(--primary-color)">${exp.category}</span>
-                        ${addedBy}
-                    </div>
-                    ${extraInfo}
+                    <div style="font-weight:bold">${exp.desc}</div>
+                    <div style="font-size:0.85em; opacity:0.8; margin:2px 0">${formatDate(exp.date)} | ${exp.category}</div>
+                    ${payTag} ${extra} ${userTag}
                 </td>
-                <td style="text-align:left; vertical-align:top">
-                    <div style="font-weight:bold; color:var(--success-color); font-size:1.1em;">${formatCurrency(exp.amount)}</div>
-                    <button class="delete-btn" onclick="deleteExpense('${exp.firebaseId}')" style="margin-top:5px; font-size:0.75em">🗑️</button>
+                <td style="vertical-align:top; text-align:left">
+                    <div style="font-weight:bold; color:var(--success-color); font-size:1.1em">₪${exp.amount.toLocaleString()}</div>
+                    <button style="margin-top:5px; background:none; border:1px solid #ddd; padding:4px 8px; border-radius:4px; cursor:pointer" onclick="deleteExpense('${exp.firebaseId}')">🗑️</button>
                 </td>
             `;
             tbody.appendChild(tr);
         });
-
         updateSummary(filtered);
         drawChart(filtered);
     }
 
     function toggleExtraFields() {
         const type = document.getElementById('expenseType').value;
-        const extraContainer = document.getElementById('extraFields');
-        const installmentsDiv = document.getElementById('installmentsContainer');
-        const loanDiv = document.getElementById('loanContainer');
-        const amountInput = document.getElementById('amount');
-        const submitBtn = document.getElementById('submitBtn');
-
-        extraContainer.style.display = 'none';
-        installmentsDiv.style.display = 'none';
-        loanDiv.style.display = 'none';
-        amountInput.readOnly = false;
-        amountInput.style.backgroundColor = 'var(--bg-color)';
-        submitBtn.innerText = "הוסף הוצאה";
-
-        if (type === 'installments') {
-            extraContainer.style.display = 'grid';
-            installmentsDiv.style.display = 'block';
-            amountInput.placeholder = "מחושב אוטומטית...";
-            amountInput.readOnly = true;
-            amountInput.style.backgroundColor = 'rgba(0,0,0,0.05)';
-            submitBtn.innerText = "צור פריסת תשלומים";
-        } else if (type === 'loan') {
-            extraContainer.style.display = 'grid';
-            loanDiv.style.display = 'block';
-            amountInput.placeholder = "סכום החזר חודשי";
+        document.getElementById('extraFields').style.display = (type === 'regular') ? 'none' : 'grid';
+        document.getElementById('installmentsContainer').style.display = (type === 'installments') ? 'block' : 'none';
+        document.getElementById('loanContainer').style.display = (type === 'loan') ? 'block' : 'none';
+        
+        const amt = document.getElementById('amount');
+        const btn = document.getElementById('submitBtn');
+        if(type === 'installments') {
+            amt.readOnly = true; amt.placeholder = "מחושב אוטומטית"; amt.style.background = "#eee";
+            btn.innerText = "צור פריסת תשלומים";
+        } else {
+            amt.readOnly = false; amt.placeholder = "סכום"; amt.style.background = "var(--bg-color)";
+            btn.innerText = "הוסף";
         }
     }
 
     function calculateInstallment() {
-        const total = parseFloat(document.getElementById('totalPrice').value);
-        const count = parseInt(document.getElementById('numberOfPayments').value);
-        if (total && count && count > 0) {
-            const monthly = (total / count).toFixed(2);
-            document.getElementById('amount').value = monthly;
-            document.getElementById('installmentResult').innerText = `💡 חישוב: ₪${monthly} למשך ${count} חודשים`;
+        const t = parseFloat(document.getElementById('totalPrice').value);
+        const n = parseInt(document.getElementById('numberOfPayments').value);
+        if(t && n) {
+            const res = (t/n).toFixed(2);
+            document.getElementById('amount').value = res;
+            document.getElementById('installmentResult').innerText = `₪${res} לחודש`;
         }
     }
 
     function resetForm() {
-        document.getElementById('desc').value = '';
-        document.getElementById('amount').value = '';
-        document.getElementById('totalPrice').value = '';
-        document.getElementById('numberOfPayments').value = '';
-        document.getElementById('monthsLeft').value = '';
+        document.getElementById('expenseForm').reset();
         document.getElementById('expenseType').value = 'regular';
-        document.getElementById('installmentResult').innerText = '';
         toggleExtraFields();
     }
 
     function updateSummary(filteredData) {
         const total = filteredData.reduce((sum, item) => sum + item.amount, 0);
-        const currentMonthStr = new Date().toISOString().slice(0, 7);
-        const monthlyTotalAllCats = expenses
-            .filter(e => e.date.startsWith(currentMonthStr))
-            .reduce((sum, item) => sum + item.amount, 0);
-        const displayTotal = document.getElementById('filterMonth').value ? total : monthlyTotalAllCats;
-        document.getElementById('monthlyTotal').innerText = formatCurrency(displayTotal);
+        const fMonth = document.getElementById('filterMonth').value;
+        if (!fMonth) {
+             const nowStr = new Date().toISOString().slice(0, 7);
+             const monthSum = expenses.filter(e => e.date.startsWith(nowStr)).reduce((s, i) => s + i.amount, 0);
+             document.getElementById('monthlyTotal').innerText = '₪' + monthSum.toLocaleString();
+        } else {
+             document.getElementById('monthlyTotal').innerText = '₪' + total.toLocaleString();
+        }
     }
 
     function drawChart(data) {
-        const canvas = document.getElementById('expensesChart');
-        const ctx = canvas.getContext('2d');
-        const width = canvas.width;
-        const height = canvas.height;
-        ctx.clearRect(0, 0, width, height);
-        if (data.length === 0) {
-            ctx.font = "14px Arial"; ctx.fillStyle = "#888"; ctx.textAlign = "center";
-            ctx.fillText("אין נתונים", width/2, height/2); return;
-        }
-        const categories = {};
-        let total = 0;
-        data.forEach(item => {
-            categories[item.category] = (categories[item.category] || 0) + item.amount;
-            total += item.amount;
-        });
-        let startAngle = 0;
+        const ctx = document.getElementById('expensesChart').getContext('2d');
+        if(data.length === 0) { ctx.clearRect(0,0,200,200); return; }
+        const cats = {}; let tot = 0;
+        data.forEach(i => { cats[i.category] = (cats[i.category]||0) + i.amount; tot += i.amount; });
+        
+        let start = 0;
         const colors = {'מזון':'#FF6384', 'חשמל/מים':'#36A2EB', 'תשלומים קבועים': '#FF9F40', 'תחבורה':'#FFCE56', 'ביגוד':'#4BC0C0', 'בילויים':'#9966FF', 'אחר':'#C9CBCF'};
-        const centerX = width / 2;
-        const centerY = height / 2;
-        const radius = 80;
-        for (let cat in categories) {
-            const slice = (categories[cat] / total) * 2 * Math.PI;
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.arc(centerX, centerY, radius, startAngle, startAngle + slice);
-            ctx.fillStyle = colors[cat] || '#888';
-            ctx.fill();
-            startAngle += slice;
+        
+        ctx.clearRect(0,0,200,200);
+        for(let c in cats) {
+            const slice = (cats[c]/tot)*2*Math.PI;
+            ctx.beginPath(); ctx.moveTo(100,100); ctx.arc(100,100,80,start,start+slice);
+            ctx.fillStyle = colors[c]||'#888'; ctx.fill(); start += slice;
         }
-        ctx.beginPath(); ctx.arc(centerX, centerY, radius * 0.6, 0, 2*Math.PI); ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--card-bg'); ctx.fill();
+        ctx.beginPath(); ctx.arc(100,100,50,0,2*Math.PI); ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--card-bg'); ctx.fill();
     }
 
-    function formatCurrency(num) { return new Intl.NumberFormat('he-IL', { style: 'currency', currency: 'ILS' }).format(num); }
-    function formatDate(str) { const d = new Date(str); return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear().toString().substr(-2)}`; }
+    function formatDate(s) { const d=new Date(s); return `${d.getDate()}/${d.getMonth()+1}`; }
     function toggleTheme() {
-        const isDark = document.body.getAttribute('data-theme') === 'dark';
-        if(isDark) { document.body.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); } 
-        else { document.body.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
-        renderExpenses(); 
+        const dark = document.body.getAttribute('data-theme') === 'dark';
+        dark ? document.body.removeAttribute('data-theme') : document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', dark ? 'light' : 'dark');
+        renderExpenses();
     }
-    
     function migrateLocalToCloud() {
-        const localData = JSON.parse(localStorage.getItem('home_expenses_v1') || "[]");
-        if (!confirm('להעלות נתונים ישנים לחשבון זה?')) return;
-        localData.forEach(item => {
-            const { id, ...cleanItem } = item;
-            if(!cleanItem.timestamp) cleanItem.timestamp = Date.now();
-            cleanItem.type = 'regular';
-            cleanItem.addedBy = currentUserProfile;
-            expensesRef.push(cleanItem);
-        });
-        localStorage.removeItem('home_expenses_v1');
-        document.getElementById('syncBtn').style.display = 'none';
-        updateLastAction();
+        const ld = JSON.parse(localStorage.getItem('home_expenses_v1')||"[]");
+        if(confirm('להעלות?')) {
+            ld.forEach(i => { delete i.id; i.addedBy=currentUserProfile; i.type='regular'; expensesRef.push(i); });
+            localStorage.removeItem('home_expenses_v1'); location.reload();
+        }
     }
 </script>
 </body>
